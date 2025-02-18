@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ukec2gv2y8y2"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_4fr1x"]
+[ext_resource type="ArrayMesh" uid="uid://bh7g36rtig2i3" path="res://ph_assets/models/cube.obj" id="2_uu00i"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_4fr1x")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0306402, 0, 0.0147004)
+mesh = ExtResource("2_uu00i")
