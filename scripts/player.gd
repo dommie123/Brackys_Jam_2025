@@ -10,13 +10,12 @@ signal player_interact
 @export var gravity: float
 @export var sprintMultiplier: float
 
-var isGrounded: bool
 var forwardVector: Vector3
 var rightVector: Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	isGrounded = true
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,8 +24,8 @@ func _process(delta: float) -> void:
 
 # TODO have outside forces act on the player body
 func update_player_physics(delta: float) -> void:
-	isGrounded = is_on_floor()
-
+	pass
+	
 
 # TODO read player inputs and translate them to actions
 func update_player_input(delta: float) -> void:
@@ -39,9 +38,15 @@ func update_player_input(delta: float) -> void:
 func update_player_movement(delta: float) -> void:
 	update_forward_and_right_vectors()
 	
+	if Input.is_action_just_pressed("player_jump") and is_on_floor():
+		print("I have jumped!")
+		velocity.y = -jumpHeight
+	elif !is_on_floor():
+		velocity.y -= gravity * delta
+	
 	var inputDirection: Vector3 = Vector3(
 		Input.get_axis("player_move_left", "player_move_right"),
-		0,
+		velocity.y,
 		Input.get_axis("player_move_forward", "player_move_backward"),
 	).normalized()
 	

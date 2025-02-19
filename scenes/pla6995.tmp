@@ -7,12 +7,9 @@
 size = Vector3(2.01538, 1.99585, 1.97174)
 
 [node name="Player" type="CharacterBody3D"]
-collision_mask = 2
 platform_floor_layers = 4294967042
 script = ExtResource("1_4fr1x")
 speed = 500.0
-jumpHeight = 5.0
-gravity = 1.0
 sprintMultiplier = 2.0
 
 [node name="Cube" type="MeshInstance3D" parent="."]

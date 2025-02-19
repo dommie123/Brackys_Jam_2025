@@ -1,30 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://01brl1mabb0m"]
+[gd_scene load_steps=6 format=3 uid="uid://01brl1mabb0m"]
 
 [ext_resource type="PackedScene" uid="uid://ukec2gv2y8y2" path="res://scenes/player.tscn" id="1_guvh0"]
 [ext_resource type="ArrayMesh" uid="uid://bh7g36rtig2i3" path="res://ph_assets/models/cube.obj" id="2_hr5o6"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_qdh41"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4dmva"]
+
+[sub_resource type="MeshLibrary" id="MeshLibrary_6jff7"]
+item/0/name = ""
+item/0/mesh = ExtResource("2_hr5o6")
+item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/shapes = [SubResource("BoxShape3D_4dmva"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/navigation_layers = 1
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xcpsd"]
 
 [node name="Level" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.864749, 0.502205, 0, -0.502205, 0.864749, 0, 4.08938, 5.58147)
+transform = Transform3D(1, 0, 0, 0, 0.864749, 0.502205, 0, -0.502205, 0.864749, 0, 5.66601, 5.58147)
 
 [node name="Player" parent="." node_paths=PackedStringArray("mainCamera") instance=ExtResource("1_guvh0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0317328, -2.38419e-07, 0.117986)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0317328, 3.5621, 0.117986)
 mainCamera = NodePath("../MainCamera")
-speed = 500.0
-
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(13.283, 0, 0, 0, 0.127575, 0, 0, 0, 14.2447, 0.353331, -1.2539, 2.21696)
-
-[node name="Cube" type="MeshInstance3D" parent="Area3D"]
-mesh = ExtResource("2_hr5o6")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("BoxShape3D_qdh41")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0122948, 1.90735e-06, -0.068676)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0122948, 2.30173, -0.068676)
 omni_range = 15.158
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = SubResource("MeshLibrary_6jff7")
+physics_material = SubResource("PhysicsMaterial_xcpsd")
+collision_layer = 2
+data = {
+"cells": PackedInt32Array(65534, 65535, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 1, 0, 0, 1, 0, 65534, 1, 0, 65534, 0, 0, 0, 0, 0, 0, 65535, 0, 1, 1, 0, 1, 0, 0, 1, 65535, 0, 1, 2, 0, 0, 2, 0, 65535, 2, 0, 65534, 2, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65534, 0, 1, 65534, 0, 2, 2, 0, 2, 1, 0, 2, 0, 0, 2, 65535, 0, 2, 65534, 0, 65535, 65533, 0, 0, 65533, 0, 65535, 65532, 0, 0, 65532, 0, 65535, 65531, 0, 0, 65531, 0, 65535, 65530, 0, 0, 65530, 0, 65535, 65529, 0, 0, 65529, 0, 65535, 65528, 0, 0, 65528, 0, 65534, 65533, 0, 65534, 65532, 0, 65534, 65531, 0, 65534, 65530, 0, 65534, 65529, 0, 65534, 65528, 0, 1, 65533, 0, 1, 65532, 0, 1, 65531, 0, 1, 65530, 0, 1, 65528, 0, 2, 65528, 0, 2, 65529, 0, 2, 65530, 0, 2, 65531, 0, 2, 65532, 0, 2, 65533, 0, 1, 65529, 0, 65533, 65534, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 1, 0, 65533, 2, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 3, 2, 0)
+}
