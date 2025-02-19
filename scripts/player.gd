@@ -12,10 +12,11 @@ signal player_interact
 
 var forwardVector: Vector3
 var rightVector: Vector3
+var yVelocity: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	yVelocity = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -38,23 +39,29 @@ func update_player_input(delta: float) -> void:
 func update_player_movement(delta: float) -> void:
 	update_forward_and_right_vectors()
 	
-	if Input.is_action_just_pressed("player_jump") and is_on_floor():
+	if not is_on_floor():
+		print("Y Velocity: ", velocity.y)
+		yVelocity -= gravity * delta
+	elif Input.is_action_just_pressed("player_jump"):
 		print("I have jumped!")
-		velocity.y = -jumpHeight
-	elif !is_on_floor():
-		velocity.y -= gravity * delta
-	
+		yVelocity = jumpHeight
+		
 	var inputDirection: Vector3 = Vector3(
 		Input.get_axis("player_move_left", "player_move_right"),
-		velocity.y,
+		0,
 		Input.get_axis("player_move_forward", "player_move_backward"),
 	).normalized()
 	
 	var speedMultiplier: float = sprintMultiplier if Input.is_action_pressed("player_sprint") else 1
 	var totalSpeed: float = inputDirection.length() * (speed * speedMultiplier) * delta
 	
-	velocity = inputDirection * totalSpeed
-	
+	if is_on_floor() and yVelocity < 0:
+		yVelocity = 0
+		
+	velocity.x = inputDirection.x * totalSpeed
+	velocity.y = yVelocity
+	velocity.z = inputDirection.z * totalSpeed
+
 	move_and_slide()
 
 func update_forward_and_right_vectors() -> void:
