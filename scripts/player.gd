@@ -1,4 +1,4 @@
-extends Node3D
+extends CharacterBody3D
 
 signal player_interact
 
@@ -8,51 +8,61 @@ signal player_interact
 @export var speed: float
 @export var jumpHeight: float
 @export var gravity: float
-@export var forwardVector: Vector3
-@export var rightVector: Vector3
 @export var sprintMultiplier: float
 
 var isGrounded: bool
+var forwardVector: Vector3
+var rightVector: Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not mainCamera:
-		forwardVector = Vector3.FORWARD
-		rightVector = Vector3.RIGHT
-		
 	isGrounded = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	update_player_physics()
-	update_player_input()
+	update_player_physics(delta)
+	update_player_input(delta)
 
 # TODO have outside forces act on the player body
-func update_player_physics() -> void:
-	pass
+func update_player_physics(delta: float) -> void:
+	isGrounded = is_on_floor()
+
 
 # TODO read player inputs and translate them to actions
-func update_player_input() -> void:
-	update_player_movement()
+func update_player_input(delta: float) -> void:
+	update_player_movement(delta)
 	
 	if Input.is_action_just_pressed("player_interact"):
 		player_interact.emit()
+		
 
-# TODO check whether the player is touching the ground
-func ground_check() -> bool: 
-	return true
+func update_player_movement(delta: float) -> void:
+	update_forward_and_right_vectors()
+	
+	var inputDirection: Vector3 = Vector3(
+		Input.get_axis("player_move_left", "player_move_right"),
+		0,
+		Input.get_axis("player_move_forward", "player_move_backward"),
+	).normalized()
+	
+	var speedMultiplier: float = sprintMultiplier if Input.is_action_pressed("player_sprint") else 1
+	var totalSpeed: float = inputDirection.length() * (speed * speedMultiplier) * delta
+	
+	velocity = inputDirection * totalSpeed
+	
+	move_and_slide()
 
-func update_player_movement() -> void:
-	var player_forward_velocity = Input.get_axis("player_move_backward", "player_move_forward")
-	var player_right_velocity = Input.get_axis("player_move_left", "player_move_right")
+func update_forward_and_right_vectors() -> void:
+	var newForwardVector: Vector3
+	var newRightVector: Vector3
 	
-	player_forward_velocity *= speed * sprintMultiplier if Input.is_action_pressed("player_sprint") else 1
-	player_right_velocity *= speed * sprintMultiplier if Input.is_action_pressed("player_sprint") else 1
+	if not mainCamera:
+		newForwardVector = Vector3.FORWARD
+		newRightVector = Vector3.RIGHT
+	else:
+		newForwardVector = Vector3(-mainCamera.basis.z.x, 0, -mainCamera.basis.z.z)
+		newRightVector = mainCamera.basis.x
+		
+	forwardVector = newForwardVector
+	rightVector = newRightVector
 	
-	var movement: Vector3 = Vector3(
-		position.x + player_right_velocity, 
-		position.y,
-		position.z + player_forward_velocity
-	)
-	
-	position += movement

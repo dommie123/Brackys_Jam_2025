@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://01brl1mabb0m"]
+
+[ext_resource type="PackedScene" uid="uid://ukec2gv2y8y2" path="res://scenes/player.tscn" id="1_guvh0"]
+[ext_resource type="ArrayMesh" uid="uid://bh7g36rtig2i3" path="res://ph_assets/models/cube.obj" id="2_hr5o6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qdh41"]
+
+[node name="Level" type="Node3D"]
+
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.864749, 0.502205, 0, -0.502205, 0.864749, 0, 4.08938, 5.58147)
+
+[node name="Player" parent="." node_paths=PackedStringArray("mainCamera") instance=ExtResource("1_guvh0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0317328, -2.38419e-07, 0.117986)
+mainCamera = NodePath("../MainCamera")
+speed = 500.0
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(13.283, 0, 0, 0, 0.127575, 0, 0, 0, 14.2447, 0.353331, -1.2539, 2.21696)
+
+[node name="Cube" type="MeshInstance3D" parent="Area3D"]
+mesh = ExtResource("2_hr5o6")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_qdh41")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0122948, 1.90735e-06, -0.068676)
+omni_range = 15.158

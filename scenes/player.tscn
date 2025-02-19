@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://ukec2gv2y8y2"]
+[gd_scene load_steps=4 format=3 uid="uid://ukec2gv2y8y2"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_4fr1x"]
 [ext_resource type="ArrayMesh" uid="uid://bh7g36rtig2i3" path="res://ph_assets/models/cube.obj" id="2_uu00i"]
 
-[node name="Player" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_17apt"]
+size = Vector3(2.01538, 1.99585, 1.97174)
+
+[node name="Player" type="CharacterBody3D"]
+platform_floor_layers = 4294967042
 script = ExtResource("1_4fr1x")
+speed = 500.0
+sprintMultiplier = 2.0
 
 [node name="Cube" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0306402, 0, 0.0147004)
 mesh = ExtResource("2_uu00i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0269775, 0.0172119, 0.0249939)
+shape = SubResource("BoxShape3D_17apt")
