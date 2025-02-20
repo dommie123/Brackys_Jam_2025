@@ -17,12 +17,19 @@ item/0/navigation_layers = 1
 
 [node name="Level" type="Node3D"]
 
-[node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.864749, 0.502205, 0, -0.502205, 0.864749, 0, 5.66601, 5.58147)
-
-[node name="Player" parent="." node_paths=PackedStringArray("mainCamera") instance=ExtResource("1_guvh0")]
+[node name="Player" parent="." node_paths=PackedStringArray("cameraPivot") instance=ExtResource("1_guvh0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0317328, 3.5621, 0.117986)
-mainCamera = NodePath("../MainCamera")
+cameraPivot = NodePath("CameraPivot")
+
+[node name="CameraPivot" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraPivot"]
+collision_mask = 3
+spring_length = 3.0
+
+[node name="MainCamera" type="Camera3D" parent="Player/CameraPivot/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.864749, 0.502205, 0, -0.502205, 0.864749, 0.0317328, 2.10391, 5.46348)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0122948, 2.30173, -0.068676)

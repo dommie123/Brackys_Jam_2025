@@ -2,13 +2,17 @@ extends CharacterBody3D
 
 signal player_interact
 
-@export var mainCamera: Camera3D
+@export var cameraPivot: Node3D
 
 @export_category("Player Movement")
 @export var speed: float
 @export var jumpHeight: float
 @export var gravity: float
 @export var sprintMultiplier: float
+
+@export_category("Camera Rotation")
+@export var camRotateSpeed: float
+@export var pitchLimit: float
 
 var forwardVector: Vector3
 var rightVector: Vector3
@@ -28,22 +32,38 @@ func update_player_physics(delta: float) -> void:
 	pass
 	
 
-# TODO read player inputs and translate them to actions
 func update_player_input(delta: float) -> void:
 	update_player_movement(delta)
+	update_camera_movement(delta)
 	
 	if Input.is_action_just_pressed("player_interact"):
 		player_interact.emit()
 		
 
+func update_camera_movement(delta: float) -> void: 
+	var pivotYawRotationDirection = Input.get_axis(
+		"camera_rotate_left", "camera_rotate_right"
+	)
+	var pivotPitchRotationDirection = Input.get_axis(
+		"camera_rotate_down", "camera_rotate_up"
+	)
+	
+	$CameraPivot.rotation.x += pivotPitchRotationDirection * (camRotateSpeed * delta)
+	$CameraPivot.rotation.x = clampf(
+		$CameraPivot.rotation.x, 
+		-deg_to_rad(pitchLimit), 
+		deg_to_rad(pitchLimit)
+	)
+	
+	$CameraPivot.rotation.y += pivotYawRotationDirection * (camRotateSpeed * delta)
+	
+	
 func update_player_movement(delta: float) -> void:
 	update_forward_and_right_vectors()
 	
 	if not is_on_floor():
-		print("Y Velocity: ", velocity.y)
 		yVelocity -= gravity * delta
 	elif Input.is_action_just_pressed("player_jump"):
-		print("I have jumped!")
 		yVelocity = jumpHeight
 		
 	var inputDirection: Vector3 = Vector3(
@@ -64,16 +84,17 @@ func update_player_movement(delta: float) -> void:
 
 	move_and_slide()
 
+
 func update_forward_and_right_vectors() -> void:
 	var newForwardVector: Vector3
 	var newRightVector: Vector3
 	
-	if not mainCamera:
+	if not cameraPivot:
 		newForwardVector = Vector3.FORWARD
 		newRightVector = Vector3.RIGHT
 	else:
-		newForwardVector = Vector3(-mainCamera.basis.z.x, 0, -mainCamera.basis.z.z)
-		newRightVector = mainCamera.basis.x
+		newForwardVector = Vector3(-cameraPivot.basis.z.x, 0, -cameraPivot.basis.z.z)
+		newRightVector = cameraPivot.basis.x
 		
 	forwardVector = newForwardVector
 	rightVector = newRightVector
