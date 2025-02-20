@@ -20,6 +20,7 @@ item/0/navigation_layers = 1
 [node name="Player" parent="." node_paths=PackedStringArray("cameraPivot") instance=ExtResource("1_guvh0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0317328, 3.5621, 0.117986)
 cameraPivot = NodePath("CameraPivot")
+speed = 10.0
 
 [node name="CameraPivot" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

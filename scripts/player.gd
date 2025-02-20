@@ -59,28 +59,27 @@ func update_camera_movement(delta: float) -> void:
 	
 	
 func update_player_movement(delta: float) -> void:
-	update_forward_and_right_vectors()
+	# Adjust movement to be relative to cameraPivot
+	var camera_basis = cameraPivot.global_transform.basis
+	var forward = camera_basis.z.normalized()
+	var right = camera_basis.x.normalized()
 	
 	if not is_on_floor():
 		yVelocity -= gravity * delta
 	elif Input.is_action_just_pressed("player_jump"):
 		yVelocity = jumpHeight
 		
-	var inputDirection: Vector3 = Vector3(
-		Input.get_axis("player_move_left", "player_move_right"),
-		0,
-		Input.get_axis("player_move_forward", "player_move_backward"),
-	).normalized()
+	var input_direction = Input.get_axis("player_move_left", "player_move_right") * right + Input.get_axis("player_move_forward", "player_move_backward") * forward
+	input_direction = input_direction.normalized()
 	
-	var speedMultiplier: float = sprintMultiplier if Input.is_action_pressed("player_sprint") else 1
-	var totalSpeed: float = inputDirection.length() * (speed * speedMultiplier) * delta
+	var speed_multiplier = sprintMultiplier if Input.is_action_pressed("player_sprint") else 1
+	var total_speed = speed * speed_multiplier
 	
 	if is_on_floor() and yVelocity < 0:
 		yVelocity = 0
 		
-	velocity.x = inputDirection.x * totalSpeed
+	velocity = input_direction * total_speed
 	velocity.y = yVelocity
-	velocity.z = inputDirection.z * totalSpeed
 
 	move_and_slide()
 
