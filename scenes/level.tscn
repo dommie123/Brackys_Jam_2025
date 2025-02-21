@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://01brl1mabb0m"]
+[gd_scene load_steps=13 format=3 uid="uid://01brl1mabb0m"]
 
 [ext_resource type="PackedScene" uid="uid://ukec2gv2y8y2" path="res://scenes/player.tscn" id="1_guvh0"]
 [ext_resource type="Texture2D" uid="uid://bbasavkqrrtum" path="res://assets/textures/wood.jpg" id="2_fx027"]
 [ext_resource type="Texture2D" uid="uid://tl8ocqmbcd2f" path="res://assets/textures/painted_wall.jpg" id="3_umiyf"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cklt8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gng5"]
 albedo_texture = ExtResource("2_fx027")
@@ -46,14 +48,16 @@ cameraPivot = NodePath("CameraPivot")
 speed = 10.0
 
 [node name="CameraPivot" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.993804, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45106, 0)
 collision_mask = 3
+shape = SubResource("SphereShape3D_cklt8")
 spring_length = 3.0
 
 [node name="MainCamera" type="Camera3D" parent="Player/CameraPivot/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 0.864749, 0.502205, 0, -0.502205, 0.864749, 0.0317328, 2.10391, 5.46348)
+transform = Transform3D(1, 0, 0, 0, 0.885588, 0.464471, 0, -0.464471, 0.885588, -0.0424917, 1.91875, 2.45774)
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = SubResource("MeshLibrary_6jff7")
