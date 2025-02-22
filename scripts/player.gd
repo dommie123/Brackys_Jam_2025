@@ -39,7 +39,7 @@ var rightVector: Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	$InteractArea/CollisionShape3D.set_disabled(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -57,6 +57,7 @@ func update_player_input(delta: float) -> void:
 	update_camera_movement(delta)
 	
 	if Input.is_action_just_pressed("player_interact"):
+		$InteractArea/CollisionShape3D.set_disabled(false)
 		$InteractTimer.start()
 		currentState = PlayerState.INTERACT
 		
@@ -208,4 +209,5 @@ func get_current_direction() -> PlayerAnimDirection:
 		return currentDirection
 
 func _on_interact_timer_timeout() -> void:
+	$InteractArea/CollisionShape3D.set_disabled(true)
 	currentState = PlayerState.IDLE

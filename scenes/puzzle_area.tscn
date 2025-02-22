@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8qae8ft101fx"]
+
+[ext_resource type="Script" path="res://scripts/puzzle_area.gd" id="1_fhqw0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_njbps"]
+
+[node name="PuzzleArea" type="Area3D"]
+script = ExtResource("1_fhqw0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_njbps")
+
+[connection signal="item_interacted_with" from="." to="." method="_on_item_interacted_with"]

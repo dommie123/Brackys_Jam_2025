@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ukec2gv2y8y2"]
+[gd_scene load_steps=44 format=3 uid="uid://ukec2gv2y8y2"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_4fr1x"]
 [ext_resource type="Texture2D" uid="uid://lnpmip2kcn40" path="res://assets/sprites/cat/cat_idle_side_1_2.png" id="2_b8mrq"]
@@ -294,6 +294,9 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_17apt"]
 size = Vector3(1.47913, 1.16452, 1.48122)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_grdbm"]
+size = Vector3(1.35197, 0.572266, 1.23438)
+
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 6
 platform_floor_layers = 4294967046
@@ -320,5 +323,13 @@ shape = SubResource("BoxShape3D_17apt")
 [node name="InteractTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0214999, 0.291411, -0.0390624)
+shape = SubResource("BoxShape3D_grdbm")
+disabled = true
 
 [connection signal="timeout" from="InteractTimer" to="." method="_on_interact_timer_timeout"]

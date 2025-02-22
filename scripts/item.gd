@@ -1,8 +1,6 @@
-extends Area3D
+extends Interactible
 
-class_name Interactible
-
-signal item_interacted_with
+class_name Item
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,5 +12,6 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_area_entered(area: Area3D) -> void:
-	item_interacted_with.emit()
+func _on_item_interacted_with() -> void:
+	# TODO have cat launch or break item
+	pass # Replace with function body.
