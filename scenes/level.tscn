@@ -160,7 +160,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 38.226
 mesh = ExtResource("11_k4iqp")
 
 [node name="DoorOpen" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 15.4052, 0.162996, 23.7337)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 15.4052, 0.162996, 26.1767)
 mesh = ExtResource("12_78gk0")
 
 [node name="Sink" type="MeshInstance3D" parent="."]
