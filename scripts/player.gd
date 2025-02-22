@@ -67,8 +67,13 @@ func update_player_animations() -> void:
 	$AnimatedSprite3D.flip_h = currentDirection == PlayerAnimDirection.LEFT
 	
 	# Interact animation overrides all other animations
-	if currentState == PlayerState.INTERACT and $AnimatedSprite3D.get_animation() != "interact_side":
-		$AnimatedSprite3D.play("interact_side")
+	if currentState == PlayerState.INTERACT and not "interact" in $AnimatedSprite3D.get_animation():
+		if currentDirection == PlayerAnimDirection.BACKWARD:
+			$AnimatedSprite3D.play("interact_back")
+		elif currentDirection == PlayerAnimDirection.FORWARD:
+			$AnimatedSprite3D.play("interact_front")
+		else:
+			$AnimatedSprite3D.play("interact_side")
 	
 	if currentState == PlayerState.INTERACT:
 		return

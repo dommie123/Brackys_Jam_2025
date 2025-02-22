@@ -100,6 +100,7 @@ camera_rotate_down={
 3d_physics/layer_2="Ground"
 3d_physics/layer_3="Platform"
 3d_physics/layer_4="Interactibles"
+3d_physics/layer_5="PlayerInteractionTrigger"
 
 [rendering]
 

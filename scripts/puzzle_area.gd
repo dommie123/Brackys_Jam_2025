@@ -3,7 +3,6 @@ extends Interactible
 class_name PuzzleArea
 
 signal puzzle_started
-signal puzzle_completed
 
 @export var puzzle_id: int
 
@@ -19,6 +18,4 @@ func _process(delta: float) -> void:
 
 
 func _on_item_interacted_with() -> void:
-	# TODO begin puzzle microgame
 	puzzle_started.emit(puzzle_id)
-	#puzzle_completed.emit(puzzle_id)
