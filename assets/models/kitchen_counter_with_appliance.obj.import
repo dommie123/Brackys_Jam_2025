@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bk7fed5e5yd70"
+path="res://.godot/imported/kitchen_counter_with_appliance.obj-337e3a6ef7695b78db15e5183e6b162e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/kitchen_counter_with_appliance.obj-337e3a6ef7695b78db15e5183e6b162e.mesh"]
+
+source_file="res://assets/models/kitchen_counter_with_appliance.obj"
+dest_files=["res://.godot/imported/kitchen_counter_with_appliance.obj-337e3a6ef7695b78db15e5183e6b162e.mesh", "res://.godot/imported/kitchen_counter_with_appliance.obj-337e3a6ef7695b78db15e5183e6b162e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

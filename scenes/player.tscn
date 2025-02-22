@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://ukec2gv2y8y2"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_4fr1x"]
-[ext_resource type="Texture2D" uid="uid://lnpmip2kcn40" path="res://assets/sprites/cat_idle.png" id="2_b8mrq"]
+[ext_resource type="Texture2D" uid="uid://lnpmip2kcn40" path="res://assets/sprites/cat/cat_idle_side_1_2.png" id="2_b8mrq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r84yq"]
 atlas = ExtResource("2_b8mrq")
@@ -91,8 +91,8 @@ animations = [{
 size = Vector3(1.47913, 1.16452, 1.48122)
 
 [node name="Player" type="CharacterBody3D"]
-collision_mask = 2
-platform_floor_layers = 4294967042
+collision_mask = 6
+platform_floor_layers = 4294967046
 script = ExtResource("1_4fr1x")
 speed = 500.0
 jumpHeight = 35.0
@@ -102,7 +102,7 @@ camRotateSpeed = 5.0
 pitchLimit = 45.0
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(2.03376, 0, 0, 0, 1.94606, 0, 0, 0, 1, 0, -0.332357, 0)
+transform = Transform3D(3.85782, 0, 0, 0, 3.62113, 0, 0, 0, 1, 0, 0.425173, 0)
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_lc24q")
 animation = &"idle_left"
