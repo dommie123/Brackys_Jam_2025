@@ -13,6 +13,8 @@ signal player_interact
 @export_category("Camera Rotation")
 @export var camRotateSpeed: float
 @export var pitchLimit: float
+@export var mouseEnabled: bool
+@export_range(0.0, 0.1) var mouseSensitivity: float
 
 var forwardVector: Vector3
 var rightVector: Vector3
@@ -39,23 +41,35 @@ func update_player_input(delta: float) -> void:
 	if Input.is_action_just_pressed("player_interact"):
 		player_interact.emit()
 		
-
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and mouseEnabled:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		$CameraPivot.rotation.x -= event.relative.y * mouseSensitivity
+		# Prevent the camera from rotating too far up or down.
+		$CameraPivot.rotation.x = clampf($CameraPivot.rotation.x, -pitchLimit, pitchLimit)
+		$CameraPivot.rotation.y += -event.relative.x * mouseSensitivity
+		
 func update_camera_movement(delta: float) -> void: 
-	var pivotYawRotationDirection = Input.get_axis(
-		"camera_rotate_left", "camera_rotate_right"
-	)
-	var pivotPitchRotationDirection = Input.get_axis(
-		"camera_rotate_down", "camera_rotate_up"
-	)
-	
-	$CameraPivot.rotation.x += pivotPitchRotationDirection * (camRotateSpeed * delta)
-	$CameraPivot.rotation.x = clampf(
-		$CameraPivot.rotation.x, 
-		-deg_to_rad(pitchLimit), 
-		deg_to_rad(pitchLimit)
-	)
-	
-	$CameraPivot.rotation.y += pivotYawRotationDirection * (camRotateSpeed * delta)
+	# Only execute the below code if the user doesn't want to enable
+	# mouse controls for the camera.
+	if mouseEnabled: 
+		return
+	else:
+		var pivotYawRotationDirection = Input.get_axis(
+			"camera_rotate_left", "camera_rotate_right"
+		)
+		var pivotPitchRotationDirection = Input.get_axis(
+			"camera_rotate_down", "camera_rotate_up"
+		)
+		
+		$CameraPivot.rotation.x += pivotPitchRotationDirection * (camRotateSpeed * delta)
+		$CameraPivot.rotation.x = clampf(
+			$CameraPivot.rotation.x, 
+			-deg_to_rad(pitchLimit), 
+			deg_to_rad(pitchLimit)
+		)
+		
+		$CameraPivot.rotation.y += pivotYawRotationDirection * (camRotateSpeed * delta)
 	
 	
 func update_player_movement(delta: float) -> void:
