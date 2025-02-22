@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://01brl1mabb0m"]
+[gd_scene load_steps=59 format=3 uid="uid://01brl1mabb0m"]
 
 [ext_resource type="PackedScene" uid="uid://ukec2gv2y8y2" path="res://scenes/player.tscn" id="1_guvh0"]
 [ext_resource type="Texture2D" uid="uid://bbasavkqrrtum" path="res://assets/textures/wood.jpg" id="2_fx027"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d23nhxwu80t6i" path="res://assets/models/cat_tree_1.fbx" id="5_uicjx"]
 [ext_resource type="ArrayMesh" uid="uid://cwgsbsfa8rx8x" path="res://assets/models/glass_cabinet.obj" id="6_p2h3f"]
 [ext_resource type="ArrayMesh" uid="uid://55sr6w1suhyg" path="res://assets/models/coffee_table.obj" id="7_iuynd"]
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="8_06235"]
 [ext_resource type="ArrayMesh" uid="uid://bbbtv3c2sexrd" path="res://assets/models/ceiling_light.obj" id="8_x7slk"]
 [ext_resource type="ArrayMesh" uid="uid://cxeqlliwjurir" path="res://assets/models/shelf.obj" id="9_slfgn"]
 [ext_resource type="ArrayMesh" uid="uid://kikdw0xphft1" path="res://assets/models/tv_table.obj" id="10_lbkpk"]
@@ -412,6 +413,11 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 20.8854, 33.0807, -39.4
 collision_layer = 4
 freeze = true
 continuous_cd = true
+script = ExtResource("8_06235")
+platformSpeed = 10.0
+distanceThreshold = 0.1
+sourceDestination = Vector3(20.885, 33.081, -39.443)
+targetDestination = Vector3(20.885, 48.081, -39.443)
 
 [node name="CeilingLightMesh" type="MeshInstance3D" parent="CeilingLight"]
 mesh = ExtResource("8_x7slk")
@@ -420,6 +426,10 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CeilingLight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639412, -42.3813, 0)
 shape = SubResource("SphereShape3D_wydbx")
+
+[node name="IdleTimer" type="Timer" parent="CeilingLight"]
+wait_time = 3.0
+one_shot = true
 
 [node name="CeilingLight3" type="RigidBody3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -25.6681, 44.2959, 43.9354)
@@ -689,3 +699,5 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0432587, 14.093, 0.0390625)
 shape = SubResource("BoxShape3D_tkwtv")
+
+[connection signal="timeout" from="CeilingLight/IdleTimer" to="CeilingLight" method="_on_idle_timer_timeout"]
