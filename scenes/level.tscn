@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://01brl1mabb0m"]
+[gd_scene load_steps=58 format=3 uid="uid://01brl1mabb0m"]
 
 [ext_resource type="PackedScene" uid="uid://ukec2gv2y8y2" path="res://scenes/player.tscn" id="1_guvh0"]
 [ext_resource type="Texture2D" uid="uid://bbasavkqrrtum" path="res://assets/textures/wood.jpg" id="2_fx027"]
@@ -11,9 +11,12 @@
 [ext_resource type="ArrayMesh" uid="uid://cxeqlliwjurir" path="res://assets/models/shelf.obj" id="9_slfgn"]
 [ext_resource type="ArrayMesh" uid="uid://kikdw0xphft1" path="res://assets/models/tv_table.obj" id="10_lbkpk"]
 [ext_resource type="ArrayMesh" uid="uid://5si4sfbbxdry" path="res://assets/models/tv2.obj" id="11_k4iqp"]
-[ext_resource type="ArrayMesh" uid="uid://cpma2110mbup3" path="res://assets/models/door_open.obj" id="12_78gk0"]
 [ext_resource type="ArrayMesh" uid="uid://dt1dk8che1j6" path="res://assets/models/sink.obj" id="13_kqk6t"]
 [ext_resource type="ArrayMesh" uid="uid://bk7fed5e5yd70" path="res://assets/models/kitchen_counter_with_appliance.obj" id="14_goteq"]
+[ext_resource type="ArrayMesh" uid="uid://7hgrrk032yma" path="res://assets/models/cat_bed.obj" id="15_e4gs5"]
+[ext_resource type="ArrayMesh" uid="uid://c8tq7ew32646v" path="res://assets/models/door_frame.obj" id="16_a0vpc"]
+[ext_resource type="ArrayMesh" uid="uid://k4uakmcwk7lm" path="res://assets/models/trash_can.obj" id="16_yjoi0"]
+[ext_resource type="ArrayMesh" uid="uid://bt114s34dyiwo" path="res://assets/models/door.obj" id="17_4el0j"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cklt8"]
 
@@ -121,9 +124,6 @@ size = Vector3(5.32886, 0.538086, 2.22845)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8h12p"]
 size = Vector3(2.42456, 6.30576, 0.590088)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6sak4"]
-size = Vector3(13.8557, 29.9541, 1.09363)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_8aof2"]
 size = Vector3(21.85, 8.76837, 11.1171)
 
@@ -142,10 +142,21 @@ size = Vector3(11.4478, 8.97275, 9.01697)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8rp1c"]
 size = Vector3(8.43216, 4.07397, 5.48389)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gtqg4"]
+height = 1.94462
+radius = 5.95038
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_p57kv"]
+height = 5.70494
+radius = 1.91431
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tkwtv"]
+size = Vector3(13.9866, 29.186, 1.07813)
+
 [node name="Level" type="Node3D"]
 
 [node name="Player" parent="." node_paths=PackedStringArray("cameraPivot") instance=ExtResource("1_guvh0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6261, 3.5621, 14.067)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6261, 3.62682, 14.067)
 cameraPivot = NodePath("CameraPivot")
 speed = 10.0
 
@@ -282,6 +293,78 @@ shape = SubResource("BoxShape3D_e43tq")
 transform = Transform3D(0.509597, 0.860413, 0, -0.860413, 0.509597, 0, 0, 0, 1, 0.000404537, 0.141612, 0.0333731)
 shape = SubResource("BoxShape3D_e43tq")
 
+[node name="CatTree2" parent="." instance=ExtResource("5_uicjx")]
+transform = Transform3D(-4.37114e-06, 0, 100, 0, 100, 0, -100, 0, -4.37114e-06, -22.8999, 0.755947, 57.7652)
+
+[node name="CatTreeBody" type="RigidBody3D" parent="CatTree2"]
+collision_layer = 4
+freeze = true
+continuous_cd = true
+
+[node name="BaseCollisionShape" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00983977, 0.00566771, 0.0122039)
+shape = SubResource("BoxShape3D_61vr3")
+
+[node name="PlatformCollisionShape" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0496931, 0.0922525, 0.0115606)
+shape = SubResource("BoxShape3D_8oou0")
+
+[node name="PlatformCollisionShape2" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0280059, 0.0995365, 0.0103322)
+shape = SubResource("BoxShape3D_a6u7f")
+
+[node name="PlatformCollisionShape3" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0496931, 0.184181, 0.0115606)
+shape = SubResource("BoxShape3D_8oou0")
+
+[node name="PlatformCollisionShape4" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0094151, 0.184181, -0.0225679)
+shape = SubResource("BoxShape3D_8oou0")
+
+[node name="PlatformCollisionShape5" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0498356, 0.204137, -0.0214899)
+shape = SubResource("BoxShape3D_shn84")
+
+[node name="ColumnCollisionShape" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0280372, 0, 0.0515037)
+shape = SubResource("CylinderShape3D_sb2p3")
+
+[node name="ColumnCollisionShape2" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0492338, 0.12414, 0.0515037)
+shape = SubResource("CylinderShape3D_sb2p3")
+
+[node name="ColumnCollisionShape4" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0280197, 0.12414, -0.0295155)
+shape = SubResource("CylinderShape3D_sb2p3")
+
+[node name="ColumnCollisionShape3" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0492338, 0.143002, -0.0284354)
+shape = SubResource("CylinderShape3D_sy3ha")
+
+[node name="CircularPlatformCollisionShape" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0480415, 0.246924, 0.0536531)
+shape = SubResource("CylinderShape3D_hw707")
+
+[node name="CircularPlatformCollisionShape2" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0268801, 0.246924, -0.0269502)
+shape = SubResource("CylinderShape3D_hw707")
+
+[node name="CircularPlatformCollisionShape3" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0508337, 0.282033, -0.0152239)
+shape = SubResource("CylinderShape3D_5lc28")
+
+[node name="CircularPlatformCollisionShape4" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0490693, 0.284559, -0.0290702)
+shape = SubResource("CylinderShape3D_5lc28")
+
+[node name="RampCollisionShape" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(0.509597, 0.860413, 0, -0.860413, 0.509597, 0, 0, 0, 1, 0.0906611, 0.0307886, -0.00484085)
+shape = SubResource("BoxShape3D_e43tq")
+
+[node name="RampCollisionShape2" type="CollisionShape3D" parent="CatTree2/CatTreeBody"]
+transform = Transform3D(0.509597, 0.860413, 0, -0.860413, 0.509597, 0, 0, 0, 1, 0.000404537, 0.141612, 0.0333731)
+shape = SubResource("BoxShape3D_e43tq")
+
 [node name="GlassCabinet" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.20061, 13.6738, -42.8907)
 collision_layer = 4
@@ -293,6 +376,20 @@ mesh = ExtResource("6_p2h3f")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GlassCabinet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.250923, 0.673455, -0.328186)
+shape = SubResource("BoxShape3D_ok5jf")
+
+[node name="GlassCabinet2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.18979, 13.6738, 30.9111)
+collision_layer = 4
+freeze = true
+continuous_cd = true
+
+[node name="GlassCabinetMesh" type="MeshInstance3D" parent="GlassCabinet2"]
+mesh = ExtResource("6_p2h3f")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GlassCabinet2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.250923, 0.673455, -0.328186)
 shape = SubResource("BoxShape3D_ok5jf")
 
@@ -324,6 +421,20 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639412, -42.3813, 0)
 shape = SubResource("SphereShape3D_wydbx")
 
+[node name="CeilingLight3" type="RigidBody3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -25.6681, 44.2959, 43.9354)
+collision_layer = 4
+freeze = true
+continuous_cd = true
+
+[node name="CeilingLightMesh" type="MeshInstance3D" parent="CeilingLight3"]
+mesh = ExtResource("8_x7slk")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CeilingLight3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639412, -42.3813, 0)
+shape = SubResource("SphereShape3D_wydbx")
+
 [node name="CeilingLight2" type="RigidBody3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 29.8324, 37.3394, -31.9867)
 collision_layer = 4
@@ -339,7 +450,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639412, -42.3813, 0)
 shape = SubResource("SphereShape3D_wydbx")
 
 [node name="Shelf" type="RigidBody3D" parent="."]
-transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 37.4989, 30.8182, -9.50731)
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 37.4989, 29.0972, -9.50731)
 collision_layer = 4
 freeze = true
 continuous_cd = true
@@ -349,6 +460,35 @@ mesh = ExtResource("9_slfgn")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shelf"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05023, -0.00418854, -0.0759888)
+shape = SubResource("BoxShape3D_tvw3m")
+
+[node name="Shelf2" type="RigidBody3D" parent="."]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 37.7912, 25.9366, 45.4395)
+collision_layer = 4
+freeze = true
+continuous_cd = true
+
+[node name="ShelfMesh" type="MeshInstance3D" parent="Shelf2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.69681, 0, 1.52588e-05)
+mesh = ExtResource("9_slfgn")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shelf2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05023, -0.00418854, -0.0759888)
+shape = SubResource("BoxShape3D_tvw3m")
+
+[node name="Shelf3" type="RigidBody3D" parent="."]
+transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 4.29483, 30.8182, 60.5533)
+collision_layer = 4
+freeze = true
+continuous_cd = true
+
+[node name="ShelfMesh" type="MeshInstance3D" parent="Shelf3"]
+mesh = ExtResource("9_slfgn")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shelf3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05023, -0.00418854, -0.0759888)
 shape = SubResource("BoxShape3D_tvw3m")
 
@@ -423,20 +563,6 @@ shape = SubResource("BoxShape3D_6sou5")
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Tv2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.652467, 3.72914, -0.407837)
 shape = SubResource("BoxShape3D_8h12p")
-
-[node name="DoorOpen" type="RigidBody3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 15.4052, 0.162996, 26.1767)
-collision_layer = 4
-freeze = true
-continuous_cd = true
-
-[node name="DoorOpenMesh" type="MeshInstance3D" parent="DoorOpen"]
-mesh = ExtResource("12_78gk0")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorOpen"]
-transform = Transform3D(0.703469, 0, 0.710726, 0, 1, 0, -0.710726, 0, 0.703469, -11.2321, 14.3017, 4.99817)
-shape = SubResource("BoxShape3D_6sak4")
 
 [node name="Sink" type="RigidBody3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 23.2256, 0.851788, 60.1641)
@@ -517,3 +643,49 @@ shape = SubResource("BoxShape3D_1os4p")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="KitchenCounterWithAppliance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19525, 13.1138, -2.24194)
 shape = SubResource("BoxShape3D_8rp1c")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.6747, 1.69051, 15.4738)
+collision_layer = 4
+freeze = true
+continuous_cd = true
+
+[node name="CatBed" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = ExtResource("15_e4gs5")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("CylinderShape3D_gtqg4")
+
+[node name="TrashCan" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -13.2399, 2.72815, 57.5724)
+collision_layer = 4
+freeze = true
+continuous_cd = true
+
+[node name="TrashCanMesh" type="MeshInstance3D" parent="TrashCan"]
+mesh = ExtResource("16_yjoi0")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrashCan"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.119143, 2.84733, 0)
+shape = SubResource("CylinderShape3D_p57kv")
+
+[node name="DoorFrame" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8954, 0, 27.1514)
+mesh = ExtResource("16_a0vpc")
+
+[node name="Door" type="RigidBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 15.002, 0.242788, 26.3673)
+collision_layer = 4
+freeze = true
+continuous_cd = true
+
+[node name="DoorMesh" type="MeshInstance3D" parent="Door"]
+mesh = ExtResource("17_4el0j")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0432587, 14.093, 0.0390625)
+shape = SubResource("BoxShape3D_tkwtv")
