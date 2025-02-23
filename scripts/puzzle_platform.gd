@@ -13,6 +13,8 @@ enum PuzzleState {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	position = sourceDestination
+	
 	currentDirection = Direction.TO_TARGET
 	currentState = State.IDLE
 

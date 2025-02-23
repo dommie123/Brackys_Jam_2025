@@ -3,13 +3,21 @@
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_jeujs"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ntv2w"]
+size = Vector3(0.09021, 0.0704498, 0.0934448)
 
 [node name="Item" type="Area3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.218744, 0)
 collision_layer = 8
 collision_mask = 16
 script = ExtResource("1_jeujs")
 
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+billboard = 1
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_ntv2w")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="item_interacted_with" from="." to="." method="_on_item_interacted_with"]
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]

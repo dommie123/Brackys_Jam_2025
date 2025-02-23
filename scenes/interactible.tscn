@@ -5,6 +5,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_2mo8q"]
 
 [node name="Interactible" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.594402, 0)
 collision_layer = 8
 collision_mask = 16
 script = ExtResource("1_5txo6")

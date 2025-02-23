@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccdew7nxcqtd1"]
+
+[ext_resource type="FontFile" uid="uid://shrbhqi8pwus" path="res://assets/fonts/PermanentMarker-Regular.ttf" id="1_e0qyg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ymcxo"]
+font = ExtResource("1_e0qyg")
+font_size = 41
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreCounter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 10.0
+offset_right = 174.0
+offset_bottom = 67.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_ymcxo")
+
+[node name="StaminaBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 85.0
+offset_right = 30.0
+offset_bottom = 112.0
+scale = Vector2(6.19652, 6.29137)
+fill_mode = 1
+show_percentage = false
+
+[node name="PuzzlePanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8qae8ft101fx"]
+[gd_scene load_steps=4 format=3 uid="uid://b8qae8ft101fx"]
 
 [ext_resource type="Script" path="res://scripts/puzzle_area.gd" id="1_fhqw0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_njbps"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3dv35"]
 
 [node name="PuzzleArea" type="Area3D"]
 collision_layer = 8
@@ -11,5 +13,8 @@ script = ExtResource("1_fhqw0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_njbps")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3dv35")
 
 [connection signal="item_interacted_with" from="." to="." method="_on_item_interacted_with"]
