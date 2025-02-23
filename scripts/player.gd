@@ -37,17 +37,34 @@ signal update_stamina_bar
 @onready var currentStamina: float = 100.0
 @onready var currentDirection: PlayerAnimDirection = PlayerAnimDirection.BACKWARD
 @onready var currentState: PlayerState = PlayerState.IDLE
-@onready var isPaused: bool = false
+@onready var gameStarted: bool = false
 
 var forwardVector: Vector3
 var rightVector: Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	pass
+	#$InteractArea/CollisionShape3D.set_disabled(true)
+	#
+	#if mouseEnabled:
+		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_game_started() -> void:
+	gameStarted = true
 	$InteractArea/CollisionShape3D.set_disabled(true)
 	
 	if mouseEnabled:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+	position = startingPosition
+
+
+func _on_game_ended() -> void:
+	gameStarted = false
+	$InteractArea/CollisionShape3D.set_disabled(false)
+	
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -61,9 +78,9 @@ func update_player_physics(delta: float) -> void:
 	
 
 func update_player_input(delta: float) -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if get_tree().paused else Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if get_tree().paused or !gameStarted else Input.MOUSE_MODE_CAPTURED
 	
-	if get_tree().paused:
+	if get_tree().paused or !gameStarted:
 		return
 	
 	update_player_movement(delta)
@@ -146,26 +163,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		
 func update_camera_movement(delta: float) -> void: 
-	# Only execute the below code if the user doesn't want to enable
-	# mouse controls for the camera.
-	if mouseEnabled: 
-		return
-	else:
-		var pivotYawRotationDirection = Input.get_axis(
-			"camera_rotate_left", "camera_rotate_right"
-		)
-		var pivotPitchRotationDirection = Input.get_axis(
-			"camera_rotate_down", "camera_rotate_up"
-		)
-		
-		$CameraPivot.rotation.x += pivotPitchRotationDirection * (camRotateSpeed * delta)
-		$CameraPivot.rotation.x = clampf(
-			$CameraPivot.rotation.x, 
-			-deg_to_rad(pitchLimit), 
-			deg_to_rad(pitchLimit)
-		)
-		
-		$CameraPivot.rotation.y += pivotYawRotationDirection * (camRotateSpeed * delta)
+	var pivotYawRotationDirection = Input.get_axis(
+		"camera_rotate_left", "camera_rotate_right"
+	)
+	var pivotPitchRotationDirection = Input.get_axis(
+		"camera_rotate_down", "camera_rotate_up"
+	)
+	
+	$CameraPivot.rotation.x += pivotPitchRotationDirection * (camRotateSpeed * delta)
+	$CameraPivot.rotation.x = clampf(
+		$CameraPivot.rotation.x, 
+		-deg_to_rad(pitchLimit), 
+		deg_to_rad(pitchLimit)
+	)
+	
+	$CameraPivot.rotation.y -= pivotYawRotationDirection * (camRotateSpeed * delta)
 	
 	
 func update_player_movement(delta: float) -> void:

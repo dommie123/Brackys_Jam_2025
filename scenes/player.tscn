@@ -392,7 +392,7 @@ transform = Transform3D(3.85782, 0, 0, 0, 3.62113, 0, 0, 0, 1, 0, 0.425173, 0)
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_lc24q")
 animation = &"interact_back"
-frame_progress = 0.690718
+frame_progress = 0.306496
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0520625, 0.457382, 0.00583637)

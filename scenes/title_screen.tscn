@@ -1,0 +1,130 @@
+[gd_scene load_steps=8 format=3 uid="uid://b72ajhh6s7ucg"]
+
+[ext_resource type="FontFile" uid="uid://y6ggpef6meo7" path="res://assets/fonts/Lemon-Regular.ttf" id="1_ka0n1"]
+[ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_kmw4e"]
+[ext_resource type="FontFile" uid="uid://cjtv73dwt5ti7" path="res://assets/fonts/SourGummy-VariableFont_wdth,wght.ttf" id="2_0ua5d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_job5o"]
+font = ExtResource("1_ka0n1")
+font_size = 48
+font_color = Color(1, 0.560784, 0.0392157, 1)
+outline_size = 2
+outline_color = Color(1, 1, 0, 1)
+shadow_size = 4
+shadow_color = Color(0.24893, 2.63215e-07, 5.41471e-08, 0.690196)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8aemu"]
+bg_color = Color(0.784314, 0.4, 0.192157, 0.482353)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.641054, 0.641071, 0.011643, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_wyuq8"]
+font_size = 12
+font_color = Color(0, 0, 0, 1)
+outline_size = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_hd7j0"]
+font_color = Color(0, 0, 0, 1)
+outline_size = 1
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kmw4e")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -359.0
+offset_top = 38.0
+offset_right = 362.0
+offset_bottom = 167.0
+grow_horizontal = 2
+text = "Claws Encounters of the Purred Kind"
+label_settings = SubResource("LabelSettings_job5o")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -278.0
+offset_right = 90.0
+offset_bottom = -229.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_0ua5d")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8aemu")
+text = "Start"
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -189.0
+offset_right = 90.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_0ua5d")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8aemu")
+text = "Exit"
+
+[node name="Credits" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -104.0
+offset_right = 402.0
+offset_bottom = -1.0
+grow_vertical = 0
+text = "Development Lead: BeegYoshi979
+2D Artist: PeepingOwl
+Sound Designers: Sinedrone Sentinel & JoshMusicComposer
+Music: Paid for by Sinedrone Sentinel
+Most models sourced from Free3D"
+label_settings = SubResource("LabelSettings_wyuq8")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -33.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "alpha 1.0"
+label_settings = SubResource("LabelSettings_hd7j0")
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
