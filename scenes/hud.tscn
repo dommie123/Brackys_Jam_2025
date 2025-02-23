@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccdew7nxcqtd1"]
+[gd_scene load_steps=12 format=3 uid="uid://ccdew7nxcqtd1"]
 
 [ext_resource type="FontFile" uid="uid://shrbhqi8pwus" path="res://assets/fonts/PermanentMarker-Regular.ttf" id="1_e0qyg"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_y8d0c"]
+[ext_resource type="AudioStream" uid="uid://xww2g4oa21pv" path="res://assets/audio/sfx/Bubble_Pop_Shoot_v4.wav" id="2_hsv4w"]
 [ext_resource type="FontFile" uid="uid://cjtv73dwt5ti7" path="res://assets/fonts/SourGummy-VariableFont_wdth,wght.ttf" id="3_ov81f"]
+[ext_resource type="AudioStream" uid="uid://doroqll852lb7" path="res://assets/audio/sfx/Menu_Selection_Button.wav" id="3_rhj8k"]
+[ext_resource type="AudioStream" uid="uid://cwiqlmy8o7dbf" path="res://assets/audio/sfx/Bubble_Pop_Shoot_v3.wav" id="4_1jriq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ymcxo"]
 font = ExtResource("1_e0qyg")
@@ -30,6 +33,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y8d0c")
+hoverStream = ExtResource("2_hsv4w")
+selectStream = ExtResource("3_rhj8k")
+pauseStream = ExtResource("4_1jriq")
 
 [node name="ScoreCounter" type="Label" parent="."]
 layout_mode = 0
@@ -122,5 +128,12 @@ theme_override_fonts/font = ExtResource("3_ov81f")
 theme_override_styles/normal = SubResource("StyleBoxFlat_l6bno")
 text = "Main Menu"
 
+[node name="SFXPlayer" type="AudioStreamPlayer3D" parent="."]
+attenuation_model = 3
+
+[connection signal="focus_entered" from="PauseMenuPanel/ResumeButton" to="." method="_on_resume_button_focus_entered"]
+[connection signal="mouse_entered" from="PauseMenuPanel/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
 [connection signal="pressed" from="PauseMenuPanel/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="focus_entered" from="PauseMenuPanel/MainMenuButton" to="." method="_on_main_menu_button_focus_entered"]
+[connection signal="mouse_entered" from="PauseMenuPanel/MainMenuButton" to="." method="_on_main_menu_button_mouse_entered"]
 [connection signal="pressed" from="PauseMenuPanel/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c07rs2sf6skl3"]
+[gd_scene load_steps=4 format=3 uid="uid://c07rs2sf6skl3"]
 
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_jeujs"]
+[ext_resource type="AudioStream" uid="uid://dr03ura8i3i5v" path="res://assets/audio/sfx/Item Break.mp3" id="2_hl8nw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ntv2w"]
 size = Vector3(0.09021, 0.163705, 0.0934448)
@@ -18,6 +19,9 @@ billboard = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0227976, 0)
 shape = SubResource("BoxShape3D_ntv2w")
+
+[node name="SFXPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_hl8nw")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="item_interacted_with" from="." to="." method="_on_item_interacted_with"]

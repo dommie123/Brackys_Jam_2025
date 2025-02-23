@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bphamraqn5kk8"]
+[gd_scene load_steps=11 format=3 uid="uid://bphamraqn5kk8"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_tlmsc"]
 [ext_resource type="PackedScene" uid="uid://ccdew7nxcqtd1" path="res://scenes/hud.tscn" id="2_bx5xl"]
+[ext_resource type="AudioStream" uid="uid://baubo2lx2uppn" path="res://assets/audio/bgm/main_theme.wav" id="3_646qd"]
 [ext_resource type="PackedScene" uid="uid://01brl1mabb0m" path="res://scenes/level.tscn" id="3_jxacv"]
 [ext_resource type="PackedScene" uid="uid://ukec2gv2y8y2" path="res://scenes/player.tscn" id="4_yccl4"]
 [ext_resource type="PackedScene" uid="uid://b72ajhh6s7ucg" path="res://scenes/title_screen.tscn" id="4_yoqa3"]
 [ext_resource type="Script" path="res://scripts/orbital_camera.gd" id="6_fltgs"]
+[ext_resource type="AudioStream" uid="uid://bcmmufqlkca0m" path="res://assets/audio/bgm/title_theme.mp3" id="7_s13lf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wi8oy"]
 
@@ -15,6 +17,8 @@ size = Vector3(307.383, 9.60941, 331.13)
 [node name="Game" type="Node3D"]
 process_mode = 3
 script = ExtResource("1_tlmsc")
+titleTheme = ExtResource("7_s13lf")
+mainTheme = ExtResource("3_646qd")
 
 [node name="Player" parent="." node_paths=PackedStringArray("cameraPivot") instance=ExtResource("4_yccl4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.744, 3.62682, 14.4964)
@@ -60,6 +64,10 @@ max_distance = 40.0
 
 [node name="OrbitalCamTarget" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.346809, 9.35537, -9.86459)
+
+[node name="BGMPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, -2.98023e-08, -1.05879e-22, 2.98023e-08, 1, 3.55271e-15, 0, -3.55271e-15, 1, 0, 1.90735e-06, 9.53674e-07)
+attenuation_model = 3
 
 [connection signal="game_ended" from="." to="Player" method="_on_game_ended"]
 [connection signal="game_ended" from="." to="HUD" method="_on_game_ended"]

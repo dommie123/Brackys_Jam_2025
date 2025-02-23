@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dr03ura8i3i5v"
+path="res://.godot/imported/Item Break.mp3-f09fdda355120127b7dc271e846b420c.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/Item Break.mp3"
+dest_files=["res://.godot/imported/Item Break.mp3-f09fdda355120127b7dc271e846b420c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://01brl1mabb0m"]
+[gd_scene load_steps=79 format=3 uid="uid://01brl1mabb0m"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5j8sj"]
 [ext_resource type="Texture2D" uid="uid://bbasavkqrrtum" path="res://assets/textures/wood.jpg" id="2_fx027"]
@@ -139,13 +139,16 @@ size = Vector3(21.85, 8.76837, 11.1171)
 size = Vector3(21.9343, 2.62451, 2.01318)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iv244"]
-size = Vector3(1.75146, 10.4527, 10.9377)
+size = Vector3(1.75146, 10.3421, 10.9377)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5kyxf"]
-size = Vector3(10.5569, 14.3095, 10.7864)
+size = Vector3(10.5569, 14.2368, 10.7864)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5p73u"]
 size = Vector3(11.4478, 8.97275, 9.01697)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2qk5p"]
+size = Vector3(21.8975, 2.99323, 1.96606)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8rp1c"]
 size = Vector3(8.43216, 4.07397, 5.48389)
@@ -228,7 +231,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g6706")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]
@@ -742,7 +745,7 @@ mesh = ExtResource("14_goteq")
 skeleton = NodePath("../../..")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Environment/KitchenCounterWithAppliance"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.50171, 3.89759, 0.397106)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.50171, 3.86123, 0.397106)
 shape = SubResource("BoxShape3D_5kyxf")
 
 [node name="CollisionShape3D8" type="CollisionShape3D" parent="Environment/KitchenCounterWithAppliance"]
@@ -750,7 +753,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.230284, 5.83556, 0.475361)
 shape = SubResource("BoxShape3D_iv244")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="Environment/KitchenCounterWithAppliance"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2086, 5.95618, 0.427647)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2086, 5.90087, 0.427647)
 shape = SubResource("BoxShape3D_iv244")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/KitchenCounterWithAppliance"]
@@ -758,8 +761,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.38809, 4.58281, 1.38425)
 shape = SubResource("BoxShape3D_5p73u")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Environment/KitchenCounterWithAppliance"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.261768, 9.70875, -4.03004)
-shape = SubResource("BoxShape3D_1os4p")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174121, 9.4398, -4.73695)
+shape = SubResource("BoxShape3D_2qk5p")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="Environment/KitchenCounterWithAppliance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.261768, 9.70875, 4.78899)

@@ -33,6 +33,10 @@ signal update_stamina_bar
 @export var mouseEnabled: bool
 @export_range(0.0, 0.1) var mouseSensitivity: float
 
+@export_category("Audio Streams")
+@export var meowStream: AudioStream
+@export var purrStream: AudioStream
+
 @onready var yVelocity: float = 0
 @onready var currentStamina: float = 100.0
 @onready var currentDirection: PlayerAnimDirection = PlayerAnimDirection.BACKWARD
@@ -87,6 +91,9 @@ func update_player_input(delta: float) -> void:
 	update_camera_movement(delta)
 	
 	if Input.is_action_just_pressed("player_interact"):
+		set_sfx_stream_randomly()
+		$SFXPlayer.play()
+		
 		$InteractArea/CollisionShape3D.set_disabled(false)
 		$InteractTimer.start()
 		currentState = PlayerState.INTERACT
@@ -258,3 +265,10 @@ func _on_interact_timer_timeout() -> void:
 
 func _on_death_barrier_area_entered(area: Area3D) -> void:
 	position = startingPosition
+
+
+func set_sfx_stream_randomly() -> void:
+	var rng = RandomNumberGenerator.new()
+	var randomNumber = rng.randi_range(1, 10)
+	
+	$SFXPlayer.stream = purrStream if randomNumber > 5 else meowStream

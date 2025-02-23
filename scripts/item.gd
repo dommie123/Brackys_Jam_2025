@@ -15,10 +15,11 @@ func _ready() -> void:
 
 func _on_item_interacted_with() -> void:
 	break_item()
-
+	
 
 func break_item() -> void:
 	$AnimatedSprite3D.play("default")
+	$SFXPlayer.play()
 	update_score_count.emit(pointValue)
 
 

@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b72ajhh6s7ucg"]
+[gd_scene load_steps=10 format=3 uid="uid://b72ajhh6s7ucg"]
 
 [ext_resource type="FontFile" uid="uid://y6ggpef6meo7" path="res://assets/fonts/Lemon-Regular.ttf" id="1_ka0n1"]
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_kmw4e"]
 [ext_resource type="FontFile" uid="uid://cjtv73dwt5ti7" path="res://assets/fonts/SourGummy-VariableFont_wdth,wght.ttf" id="2_0ua5d"]
+[ext_resource type="AudioStream" uid="uid://xww2g4oa21pv" path="res://assets/audio/sfx/Bubble_Pop_Shoot_v4.wav" id="2_38xi2"]
+[ext_resource type="AudioStream" uid="uid://doroqll852lb7" path="res://assets/audio/sfx/Menu_Selection_Button.wav" id="3_ea41x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_job5o"]
 font = ExtResource("1_ka0n1")
@@ -42,6 +44,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kmw4e")
+hoverStream = ExtResource("2_38xi2")
+selectStream = ExtResource("3_ea41x")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -126,5 +130,12 @@ grow_vertical = 0
 text = "alpha 1.0"
 label_settings = SubResource("LabelSettings_hd7j0")
 
+[node name="SFXPlayer" type="AudioStreamPlayer3D" parent="."]
+attenuation_model = 3
+
+[connection signal="focus_entered" from="StartButton" to="." method="_on_start_button_focus_entered"]
+[connection signal="mouse_entered" from="StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="focus_entered" from="ExitButton" to="." method="_on_exit_button_focus_entered"]
+[connection signal="mouse_entered" from="ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
