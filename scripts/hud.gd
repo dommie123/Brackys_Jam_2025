@@ -17,3 +17,11 @@ func _on_player_update_stamina_bar(playerStamina: float) -> void:
 
 func _on_level_update_hud_with_score(updatedScore: int) -> void:
 	$ScoreCounter.set_deferred("text", "Score: %s" % updatedScore)
+
+func toggle_pause_menu() -> void: 
+	$PauseMenuPanel.set_deferred("visible", !$PauseMenuPanel.visible)
+
+func _on_resume_button_pressed() -> void:
+	get_tree().paused = false
+	toggle_pause_menu()
+	mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE if !get_tree().paused else MouseFilter.MOUSE_FILTER_PASS

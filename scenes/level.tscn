@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://01brl1mabb0m"]
+[gd_scene load_steps=78 format=3 uid="uid://01brl1mabb0m"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_5j8sj"]
 [ext_resource type="Texture2D" uid="uid://bbasavkqrrtum" path="res://assets/textures/wood.jpg" id="2_fx027"]
@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://d23nhxwu80t6i" path="res://assets/models/cat_tree_1.fbx" id="5_uicjx"]
 [ext_resource type="ArrayMesh" uid="uid://cwgsbsfa8rx8x" path="res://assets/models/glass_cabinet.obj" id="6_p2h3f"]
 [ext_resource type="ArrayMesh" uid="uid://55sr6w1suhyg" path="res://assets/models/coffee_table.obj" id="7_iuynd"]
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="8_06235"]
 [ext_resource type="ArrayMesh" uid="uid://bbbtv3c2sexrd" path="res://assets/models/ceiling_light.obj" id="8_x7slk"]
-[ext_resource type="Script" path="res://scripts/puzzle_platform.gd" id="8_yp2x0"]
 [ext_resource type="ArrayMesh" uid="uid://cxeqlliwjurir" path="res://assets/models/shelf.obj" id="9_slfgn"]
 [ext_resource type="ArrayMesh" uid="uid://kikdw0xphft1" path="res://assets/models/tv_table.obj" id="10_lbkpk"]
 [ext_resource type="ArrayMesh" uid="uid://5si4sfbbxdry" path="res://assets/models/tv2.obj" id="11_k4iqp"]
@@ -102,8 +102,11 @@ size = Vector3(17.0769, 26.2108, 5.09753)
 [sub_resource type="BoxShape3D" id="BoxShape3D_plhru"]
 size = Vector3(69.2435, 21.5316, 99.0449)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_mxs4f"]
+radius = 3.79577
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_wydbx"]
-radius = 3.75892
+radius = 19.8967
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tvw3m"]
 size = Vector3(53.6118, 1.9613, 17.1149)
@@ -511,12 +514,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.8854, 33.0807, -39.443)
 collision_layer = 4
 freeze = true
 continuous_cd = true
-script = ExtResource("8_yp2x0")
-puzzle_id = 1
+script = ExtResource("8_06235")
 platformSpeed = 10.0
 distanceThreshold = 0.1
-sourceDestination = Vector3(20.885, 48.081, -39.443)
-targetDestination = Vector3(20.885, 33.081, -39.443)
+sourceDestination = Vector3(20.885, 33.081, -39.443)
+targetDestination = Vector3(20.885, 48.081, -39.443)
 
 [node name="CeilingLightMesh" type="MeshInstance3D" parent="Environment/CeilingLight"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -524,8 +526,35 @@ mesh = ExtResource("8_x7slk")
 skeleton = NodePath("../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/CeilingLight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639412, -8.11633, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.212086, -8.11633, 0.0987701)
+shape = SubResource("SphereShape3D_mxs4f")
+
+[node name="IdleTimer" type="Timer" parent="Environment/CeilingLight"]
+wait_time = 3.0
+one_shot = true
+
+[node name="CeilingLight2" type="RigidBody3D" parent="Environment"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 29.8324, 37.3394, -31.9867)
+collision_layer = 4
+freeze = true
+continuous_cd = true
+script = ExtResource("8_06235")
+platformSpeed = 8.0
+distanceThreshold = 0.1
+sourceDestination = Vector3(29.832, 37.339, -31.987)
+targetDestination = Vector3(29.832, 47.339, -31.987)
+
+[node name="CeilingLightMesh" type="MeshInstance3D" parent="Environment/CeilingLight2"]
+mesh = ExtResource("8_x7slk")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/CeilingLight2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639412, -42.3813, 0)
 shape = SubResource("SphereShape3D_wydbx")
+
+[node name="IdleTimer" type="Timer" parent="Environment/CeilingLight2"]
+wait_time = 3.0
+one_shot = true
 
 [node name="CeilingLight3" type="RigidBody3D" parent="Environment"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -25.6681, 44.2959, 43.9354)
@@ -538,20 +567,6 @@ mesh = ExtResource("8_x7slk")
 skeleton = NodePath("../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/CeilingLight3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639412, -42.3813, 0)
-shape = SubResource("SphereShape3D_wydbx")
-
-[node name="CeilingLight2" type="RigidBody3D" parent="Environment"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 29.8324, 37.3394, -31.9867)
-collision_layer = 4
-freeze = true
-continuous_cd = true
-
-[node name="CeilingLightMesh" type="MeshInstance3D" parent="Environment/CeilingLight2"]
-mesh = ExtResource("8_x7slk")
-skeleton = NodePath("../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/CeilingLight2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.639412, -42.3813, 0)
 shape = SubResource("SphereShape3D_wydbx")
 
@@ -788,7 +803,7 @@ mesh = ExtResource("16_a0vpc")
 skeleton = NodePath("../..")
 
 [node name="Door" type="RigidBody3D" parent="Environment"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 15.002, 0.242788, 26.3673)
+transform = Transform3D(-0.8782, 0, 0.478293, 0, 1, 0, -0.478293, 0, -0.8782, 15.5205, 0.242788, 22.8577)
 collision_layer = 4
 freeze = true
 continuous_cd = true
@@ -825,17 +840,17 @@ itemSpriteFrames = SubResource("SpriteFrames_t3rxp")
 pointValue = 10
 
 [node name="Cup5" parent="Interactibles" instance=ExtResource("12_ao2on")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.39888, 0, 0.11585)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -6.39888, 0, 0.11585)
 itemSpriteFrames = SubResource("SpriteFrames_s2oge")
 pointValue = 10
 
 [node name="Cup6" parent="Interactibles" instance=ExtResource("12_ao2on")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.40389, 0, 0.11585)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -5.40389, 0, 0.11585)
 itemSpriteFrames = SubResource("SpriteFrames_s2oge")
 pointValue = 10
 
 [node name="Cup7" parent="Interactibles" instance=ExtResource("12_ao2on")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 itemSpriteFrames = SubResource("SpriteFrames_s2oge")
 pointValue = 10
 
@@ -867,7 +882,10 @@ pointValue = 20
 [node name="Vase6" parent="Interactibles" instance=ExtResource("12_ao2on")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.02743, 3.03695, -4.24968)
 itemSpriteFrames = SubResource("SpriteFrames_i6xp5")
+pointValue = 20
 
+[connection signal="timeout" from="Environment/CeilingLight/IdleTimer" to="Environment/CeilingLight" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="Environment/CeilingLight2/IdleTimer" to="Environment/CeilingLight2" method="_on_idle_timer_timeout"]
 [connection signal="update_score_count" from="Interactibles/Cup" to="." method="_on_item_update_score_count"]
 [connection signal="update_score_count" from="Interactibles/Cup2" to="." method="_on_item_update_score_count"]
 [connection signal="update_score_count" from="Interactibles/Cup3" to="." method="_on_item_update_score_count"]

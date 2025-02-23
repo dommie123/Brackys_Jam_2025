@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccdew7nxcqtd1"]
+[gd_scene load_steps=9 format=3 uid="uid://ccdew7nxcqtd1"]
 
 [ext_resource type="FontFile" uid="uid://shrbhqi8pwus" path="res://assets/fonts/PermanentMarker-Regular.ttf" id="1_e0qyg"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_y8d0c"]
+[ext_resource type="FontFile" uid="uid://cjtv73dwt5ti7" path="res://assets/fonts/SourGummy-VariableFont_wdth,wght.ttf" id="3_ov81f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ymcxo"]
 font = ExtResource("1_e0qyg")
@@ -13,6 +14,13 @@ bg_color = Color(0.101961, 0.235294, 0.0352941, 0.803922)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4mfkw"]
 bg_color = Color(1.27065e-05, 0.900368, 0.200536, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_whvog"]
+font = ExtResource("1_e0qyg")
+font_size = 48
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6bno"]
+bg_color = Color(0.783793, 0.398952, 0.194066, 0.176471)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -62,3 +70,56 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseMenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = -158.0
+offset_right = 87.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_whvog")
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenuPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -278.0
+offset_right = 90.0
+offset_bottom = -229.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_ov81f")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l6bno")
+text = "Resume"
+
+[node name="ExitButton" type="Button" parent="PauseMenuPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -189.0
+offset_right = 90.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_ov81f")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l6bno")
+text = "Exit"
+
+[connection signal="pressed" from="PauseMenuPanel/ResumeButton" to="." method="_on_resume_button_pressed"]

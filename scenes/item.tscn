@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_jeujs"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ntv2w"]
-size = Vector3(0.09021, 0.090889, 0.0934448)
+size = Vector3(0.09021, 0.163705, 0.0934448)
 
 [node name="Item" type="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.218744, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215011, 0)
 collision_layer = 8
 collision_mask = 16
 script = ExtResource("1_jeujs")
@@ -16,7 +16,7 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 billboard = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0102196, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0227976, 0)
 shape = SubResource("BoxShape3D_ntv2w")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -369,9 +369,10 @@ animations = [{
 size = Vector3(1.47913, 1.16452, 1.48122)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_grdbm"]
-size = Vector3(2.07633, 1.27954, 2.08205)
+size = Vector3(2.07633, 2.17401, 2.08205)
 
 [node name="Player" type="CharacterBody3D"]
+process_mode = 3
 collision_mask = 6
 platform_floor_layers = 4294967046
 script = ExtResource("1_4fr1x")
@@ -391,7 +392,7 @@ transform = Transform3D(3.85782, 0, 0, 0, 3.62113, 0, 0, 0, 1, 0, 0.425173, 0)
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_lc24q")
 animation = &"interact_back"
-frame_progress = 0.392222
+frame_progress = 0.690718
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0520625, 0.457382, 0.00583637)
@@ -406,7 +407,7 @@ collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0244392, 0.514433, 0.0778427)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0244392, 0.961668, 0.0778427)
 shape = SubResource("BoxShape3D_grdbm")
 
 [connection signal="timeout" from="InteractTimer" to="." method="_on_interact_timer_timeout"]

@@ -17,6 +17,7 @@ enum PlayerAnimDirection {
 signal update_stamina_bar
 
 @export var cameraPivot: Node3D
+@export var startingPosition: Vector3
 
 @export_category("Player Movement")
 @export var speed: float
@@ -36,6 +37,7 @@ signal update_stamina_bar
 @onready var currentStamina: float = 100.0
 @onready var currentDirection: PlayerAnimDirection = PlayerAnimDirection.BACKWARD
 @onready var currentState: PlayerState = PlayerState.IDLE
+@onready var isPaused: bool = false
 
 var forwardVector: Vector3
 var rightVector: Vector3
@@ -43,6 +45,9 @@ var rightVector: Vector3
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$InteractArea/CollisionShape3D.set_disabled(true)
+	
+	if mouseEnabled:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -56,6 +61,11 @@ func update_player_physics(delta: float) -> void:
 	
 
 func update_player_input(delta: float) -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if get_tree().paused else Input.MOUSE_MODE_CAPTURED
+	
+	if get_tree().paused:
+		return
+	
 	update_player_movement(delta)
 	update_camera_movement(delta)
 	
@@ -63,9 +73,13 @@ func update_player_input(delta: float) -> void:
 		$InteractArea/CollisionShape3D.set_disabled(false)
 		$InteractTimer.start()
 		currentState = PlayerState.INTERACT
-		
+	
+
 		
 func update_player_animations() -> void:
+	if get_tree().paused:
+		return
+	
 	currentDirection = get_current_direction()
 	$AnimatedSprite3D.flip_h = currentDirection == PlayerAnimDirection.LEFT
 	
@@ -125,10 +139,9 @@ func update_player_animations() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and mouseEnabled:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		$CameraPivot.rotation.x -= event.relative.y * mouseSensitivity
 		# Prevent the camera from rotating too far up or down.
-		$CameraPivot.rotation.x = clampf($CameraPivot.rotation.x, -pitchLimit, pitchLimit)
+		$CameraPivot.rotation.x = clampf($CameraPivot.rotation.x, -deg_to_rad(pitchLimit), deg_to_rad(pitchLimit))
 		$CameraPivot.rotation.y += -event.relative.x * mouseSensitivity
 		
 		
@@ -229,3 +242,7 @@ func get_current_direction() -> PlayerAnimDirection:
 func _on_interact_timer_timeout() -> void:
 	$InteractArea/CollisionShape3D.set_disabled(true)
 	currentState = PlayerState.IDLE
+
+
+func _on_death_barrier_area_entered(area: Area3D) -> void:
+	position = startingPosition
