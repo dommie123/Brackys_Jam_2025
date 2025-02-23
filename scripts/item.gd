@@ -2,7 +2,10 @@ extends Interactible
 
 class_name Item
 
+signal update_score_count
+
 @export var itemSpriteFrames: SpriteFrames
+@export var pointValue: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +19,7 @@ func _on_item_interacted_with() -> void:
 
 func break_item() -> void:
 	$AnimatedSprite3D.play("default")
+	update_score_count.emit(pointValue)
 
 
 func _on_animated_sprite_3d_animation_finished() -> void:

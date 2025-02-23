@@ -16,6 +16,9 @@ func _process(delta: float) -> void:
 	pass
 
 
-
 func _on_item_interacted_with() -> void:
 	puzzle_started.emit(puzzle_id)
+
+
+func _on_area_entered(area: Area3D) -> void: 
+	super._on_area_entered(area)

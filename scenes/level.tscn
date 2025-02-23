@@ -1,6 +1,6 @@
-[gd_scene load_steps=67 format=3 uid="uid://01brl1mabb0m"]
+[gd_scene load_steps=77 format=3 uid="uid://01brl1mabb0m"]
 
-[ext_resource type="PackedScene" uid="uid://ukec2gv2y8y2" path="res://scenes/player.tscn" id="1_guvh0"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_5j8sj"]
 [ext_resource type="Texture2D" uid="uid://bbasavkqrrtum" path="res://assets/textures/wood.jpg" id="2_fx027"]
 [ext_resource type="Texture2D" uid="uid://tl8ocqmbcd2f" path="res://assets/textures/painted_wall.jpg" id="3_umiyf"]
 [ext_resource type="ArrayMesh" uid="uid://cbh3t4swdm4bi" path="res://assets/models/couch.obj" id="4_6emps"]
@@ -20,8 +20,7 @@
 [ext_resource type="ArrayMesh" uid="uid://c8tq7ew32646v" path="res://assets/models/door_frame.obj" id="16_a0vpc"]
 [ext_resource type="ArrayMesh" uid="uid://k4uakmcwk7lm" path="res://assets/models/trash_can.obj" id="16_yjoi0"]
 [ext_resource type="ArrayMesh" uid="uid://bt114s34dyiwo" path="res://assets/models/door.obj" id="17_4el0j"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_cklt8"]
+[ext_resource type="Texture2D" uid="uid://b5135wafxm6pk" path="res://assets/sprites/items/vase_break_animation.png" id="22_ki6aj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gng5"]
 albedo_texture = ExtResource("2_fx027")
@@ -195,24 +194,80 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x8bh"]
+atlas = ExtResource("13_fulse")
+region = Rect2(0, 1, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn118"]
+atlas = ExtResource("13_fulse")
+region = Rect2(32, 1, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbyvg"]
+atlas = ExtResource("13_fulse")
+region = Rect2(64, 1, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6706"]
+atlas = ExtResource("13_fulse")
+region = Rect2(96, 1, 31, 31)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s2oge"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x8bh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn118")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbyvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6706")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtaps"]
+atlas = ExtResource("22_ki6aj")
+region = Rect2(0, 1, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4nbu"]
+atlas = ExtResource("22_ki6aj")
+region = Rect2(32, 1, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fbkg"]
+atlas = ExtResource("22_ki6aj")
+region = Rect2(64, 1, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cfd3"]
+atlas = ExtResource("22_ki6aj")
+region = Rect2(96, 1, 31, 31)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i6xp5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtaps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4nbu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fbkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cfd3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Level" type="Node3D"]
-
-[node name="Player" parent="." node_paths=PackedStringArray("cameraPivot") instance=ExtResource("1_guvh0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6261, 3.62682, 14.067)
-cameraPivot = NodePath("CameraPivot")
-speed = 10.0
-
-[node name="CameraPivot" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.268202, 0)
-
-[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45106, 0)
-collision_mask = 3
-shape = SubResource("SphereShape3D_cklt8")
-spring_length = 3.0
-
-[node name="MainCamera" type="Camera3D" parent="Player/CameraPivot/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 0.885588, 0.464471, 0, -0.464471, 0.885588, -0.0424917, 1.91875, 2.45774)
+script = ExtResource("1_5j8sj")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = SubResource("MeshLibrary_6jff7")
@@ -746,18 +801,83 @@ skeleton = NodePath("../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0432587, 14.093, 0.0390625)
 shape = SubResource("BoxShape3D_tkwtv")
 
-[node name="Cup" parent="." instance=ExtResource("12_ao2on")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.82461, 6.77313, -10.582)
-itemSpriteFrames = SubResource("SpriteFrames_t3rxp")
+[node name="Interactibles" type="Node3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 32.5171, 12.6711, 55.4825)
 
-[node name="Cup2" parent="." instance=ExtResource("12_ao2on")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95332, 7.23053, -2.67141)
+[node name="Cup" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -8.06834, -1.17959, -13.2129)
 itemSpriteFrames = SubResource("SpriteFrames_t3rxp")
+pointValue = 10
 
-[node name="Cup3" parent="." instance=ExtResource("12_ao2on")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43665, 6.77313, -9.13663)
+[node name="Cup2" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -6.89409, -1.08811, -11.6308)
 itemSpriteFrames = SubResource("SpriteFrames_t3rxp")
+pointValue = 10
 
-[node name="Cup4" parent="." instance=ExtResource("12_ao2on")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4442, 7.23053, -15.5566)
+[node name="Cup3" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -6.01609, -1.17959, -12.9238)
 itemSpriteFrames = SubResource("SpriteFrames_t3rxp")
+pointValue = 10
+
+[node name="Cup4" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -6.79226, -1.08811, -14.2078)
+itemSpriteFrames = SubResource("SpriteFrames_t3rxp")
+pointValue = 10
+
+[node name="Cup5" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.39888, 0, 0.11585)
+itemSpriteFrames = SubResource("SpriteFrames_s2oge")
+pointValue = 10
+
+[node name="Cup6" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.40389, 0, 0.11585)
+itemSpriteFrames = SubResource("SpriteFrames_s2oge")
+pointValue = 10
+
+[node name="Cup7" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+itemSpriteFrames = SubResource("SpriteFrames_s2oge")
+pointValue = 10
+
+[node name="Vase" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -6.74053, -0.877689, -13.1096)
+itemSpriteFrames = SubResource("SpriteFrames_i6xp5")
+pointValue = 20
+
+[node name="Vase2" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.904804, 3.80506, -11.3466)
+itemSpriteFrames = SubResource("SpriteFrames_i6xp5")
+pointValue = 20
+
+[node name="Vase3" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.904804, 3.80506, -14.3261)
+itemSpriteFrames = SubResource("SpriteFrames_i6xp5")
+pointValue = 20
+
+[node name="Vase4" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.168, 3.98628, 1.06848)
+itemSpriteFrames = SubResource("SpriteFrames_i6xp5")
+pointValue = 20
+
+[node name="Vase5" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -7.28904, 3.98628, 1.06848)
+itemSpriteFrames = SubResource("SpriteFrames_i6xp5")
+pointValue = 20
+
+[node name="Vase6" parent="Interactibles" instance=ExtResource("12_ao2on")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.02743, 3.03695, -4.24968)
+itemSpriteFrames = SubResource("SpriteFrames_i6xp5")
+
+[connection signal="update_score_count" from="Interactibles/Cup" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Cup2" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Cup3" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Cup4" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Cup5" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Cup6" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Cup7" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Vase" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Vase2" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Vase3" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Vase4" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Vase5" to="." method="_on_item_update_score_count"]
+[connection signal="update_score_count" from="Interactibles/Vase6" to="." method="_on_item_update_score_count"]

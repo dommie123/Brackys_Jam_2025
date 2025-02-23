@@ -17,4 +17,5 @@ shape = SubResource("BoxShape3D_njbps")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3dv35")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="item_interacted_with" from="." to="." method="_on_item_interacted_with"]

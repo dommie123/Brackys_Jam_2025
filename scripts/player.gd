@@ -14,7 +14,7 @@ enum PlayerAnimDirection {
 	RIGHT
 }
 
-signal player_interact
+signal update_stamina_bar
 
 @export var cameraPivot: Node3D
 
@@ -23,6 +23,8 @@ signal player_interact
 @export var jumpHeight: float
 @export var gravity: float
 @export var sprintMultiplier: float
+@export var staminaDrainRate: float
+@export var staminaRechargeRate: float
 
 @export_category("Camera Rotation")
 @export var camRotateSpeed: float
@@ -31,6 +33,7 @@ signal player_interact
 @export_range(0.0, 0.1) var mouseSensitivity: float
 
 @onready var yVelocity: float = 0
+@onready var currentStamina: float = 100.0
 @onready var currentDirection: PlayerAnimDirection = PlayerAnimDirection.BACKWARD
 @onready var currentState: PlayerState = PlayerState.IDLE
 
@@ -128,6 +131,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		$CameraPivot.rotation.x = clampf($CameraPivot.rotation.x, -pitchLimit, pitchLimit)
 		$CameraPivot.rotation.y += -event.relative.x * mouseSensitivity
 		
+		
 func update_camera_movement(delta: float) -> void: 
 	# Only execute the below code if the user doesn't want to enable
 	# mouse controls for the camera.
@@ -156,6 +160,15 @@ func update_player_movement(delta: float) -> void:
 	var camera_basis = cameraPivot.global_transform.basis
 	var forward = camera_basis.z.normalized()
 	var right = camera_basis.x.normalized()
+	var isSprinting = Input.is_action_pressed("player_sprint") and velocity.length() > 0
+	var canSprint = currentStamina > 0.0
+	
+	if isSprinting and canSprint:
+		currentStamina -= staminaDrainRate
+	elif not isSprinting and currentStamina < 100:
+		currentStamina += staminaRechargeRate
+	
+	update_stamina_bar.emit(currentStamina)
 	
 	if not is_on_floor():
 		yVelocity -= gravity * delta
@@ -165,7 +178,7 @@ func update_player_movement(delta: float) -> void:
 	var input_direction = Input.get_axis("player_move_left", "player_move_right") * right + Input.get_axis("player_move_forward", "player_move_backward") * forward
 	input_direction = input_direction.normalized()
 	
-	var speed_multiplier = sprintMultiplier if Input.is_action_pressed("player_sprint") else 1
+	var speed_multiplier = sprintMultiplier if isSprinting and canSprint else 1
 	var total_speed = speed * speed_multiplier
 	
 	if is_on_floor() and yVelocity < 0:

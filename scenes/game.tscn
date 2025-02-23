@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bphamraqn5kk8"]
+
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_tlmsc"]
+[ext_resource type="PackedScene" uid="uid://ccdew7nxcqtd1" path="res://scenes/hud.tscn" id="2_bx5xl"]
+[ext_resource type="PackedScene" uid="uid://01brl1mabb0m" path="res://scenes/level.tscn" id="3_jxacv"]
+[ext_resource type="PackedScene" uid="uid://ukec2gv2y8y2" path="res://scenes/player.tscn" id="4_yccl4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wi8oy"]
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_tlmsc")
+
+[node name="Player" parent="." node_paths=PackedStringArray("cameraPivot") instance=ExtResource("4_yccl4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6261, 3.62682, 14.067)
+cameraPivot = NodePath("CameraPivot")
+speed = 10.0
+
+[node name="CameraPivot" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.268202, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45106, 0)
+collision_mask = 3
+shape = SubResource("SphereShape3D_wi8oy")
+spring_length = 3.0
+
+[node name="MainCamera" type="Camera3D" parent="Player/CameraPivot/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.885588, 0.464471, 0, -0.464471, 0.885588, -0.0424917, 1.91875, 2.45774)
+
+[node name="Level" parent="." instance=ExtResource("3_jxacv")]
+
+[node name="HUD" parent="." instance=ExtResource("2_bx5xl")]
+
+[connection signal="update_stamina_bar" from="Player" to="HUD" method="_on_player_update_stamina_bar"]
+[connection signal="update_hud_with_score" from="Level" to="HUD" method="_on_level_update_hud_with_score"]
